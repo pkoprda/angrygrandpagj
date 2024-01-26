@@ -1,2 +1,1 @@
-# angrygrandpagj
-Angry Grandpa Game Jam
+# Angry Grandpa Game Jam
