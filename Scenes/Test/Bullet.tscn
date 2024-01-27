@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxd8v188arjkx"]
+
+[ext_resource type="Script" path="res://Scenes/Projectile.gd" id="1_rlr66"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_onlaj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m7uks"]
+
+[node name="Bullet" type="Node3D"]
+
+[node name="Area3D Bullet" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.98874, 0)
+script = ExtResource("1_rlr66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D Bullet"]
+mesh = SubResource("CylinderMesh_onlaj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D Bullet"]
+shape = SubResource("CylinderShape3D_m7uks")
+
+[connection signal="body_entered" from="Area3D Bullet" to="Area3D Bullet" method="_on_body_entered"]

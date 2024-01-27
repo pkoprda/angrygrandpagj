@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=10 format=3 uid="uid://b42xbt2slvrfk"]
 
-[ext_resource type="Script" path="res://Scenes/MainScene.gd" id="1_mtr11"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="1_qinwk"]
 [ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="2_h1m7j"]
+[ext_resource type="Script" path="res://Scenes/Projectile.gd" id="3_2tyk2"]
+[ext_resource type="Script" path="res://Scenes/BulletMeshScript.gd" id="4_qlr0d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xl7y"]
 size = Vector3(16.5176, 0.468506, 17.8281)
@@ -17,8 +18,11 @@ ambient_light_color = Color(1, 0.901961, 0.521569, 1)
 ambient_light_energy = 5.56
 reflected_light_source = 2
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_x1ioq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_t8xfu"]
+
 [node name="Main" type="Node3D"]
-script = ExtResource("1_mtr11")
 
 [node name="s5" type="StaticBody3D" parent="."]
 transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 8.06612, -6.11567, 0)
@@ -102,3 +106,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32802, 0)
 
 [node name="BasicBall" parent="." instance=ExtResource("2_h1m7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+
+[node name="Area3D Bullet" type="Area3D" parent="."]
+script = ExtResource("3_2tyk2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D Bullet"]
+mesh = SubResource("CylinderMesh_x1ioq")
+script = ExtResource("4_qlr0d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D Bullet"]
+shape = SubResource("CylinderShape3D_t8xfu")
+
+[connection signal="body_entered" from="Area3D Bullet" to="Area3D Bullet" method="_on_body_entered"]
