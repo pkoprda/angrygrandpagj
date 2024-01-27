@@ -1,6 +1,6 @@
 extends Node
 
-var BulletScenePath = "res://Scenes/Test/Bullet.tscn"
+var BulletScenePath = "res://Scenes/Weapons/Bullet.tscn"
 @onready var Bullet = load(BulletScenePath)
 
 # Called when the node enters the scene tree for the first time.

@@ -57,7 +57,6 @@ func _physics_process(delta):
 			#look_at(global_transform.origin - velocity, Vector3.UP)
 			move_and_slide()
 	else:
-		
 		move_and_slide()
 	
 	# Rotation part

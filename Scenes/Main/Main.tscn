@@ -1,129 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=9 format=3 uid="uid://dc7ynyseyd5l3"]
 
-[ext_resource type="Script" path="res://Scenes/MainScene.gd" id="1_mtr11"]
-[ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="1_qinwk"]
-[ext_resource type="PackedScene" path="res://Scenes/Test/basic_ball.tscn" id="2_h1m7j"]
-[ext_resource type="PackedScene" path="res://Grandpa model.glb" id="3_rboba"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="4_j2xam"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_ranp0"]
+[ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
+[ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
+[ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://j216mnl2o6b0" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3xl7y"]
-size = Vector3(16.5176, 0.468506, 17.8281)
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
+size = Vector3(17.338, 0.2, 14.675)
 
-[sub_resource type="BoxMesh" id="BoxMesh_5rc6p"]
-size = Vector3(16.518, 0.469, 17.828)
-
-[sub_resource type="Environment" id="Environment_c1hsu"]
-background_energy_multiplier = 3.36
-ambient_light_source = 3
-ambient_light_color = Color(1, 0.901961, 0.521569, 1)
-ambient_light_energy = 5.56
-reflected_light_source = 2
+[sub_resource type="PlaneMesh" id="PlaneMesh_mcxtw"]
+size = Vector2(20, 20)
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_bjt6s")
+script = ExtResource("1_w37ph")
 
-[node name="s5" type="StaticBody3D" parent="."]
-transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 8.06612, -6.11567, 0)
-collision_mask = 5
-metadata/_edit_group_ = true
+[node name="Ground" type="StaticBody3D" parent="."]
 
-[node name="c" type="CollisionShape3D" parent="s5"]
-shape = SubResource("BoxShape3D_3xl7y")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0166016, 0)
+shape = SubResource("BoxShape3D_7fptj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s5"]
-mesh = SubResource("BoxMesh_5rc6p")
-skeleton = NodePath("../../s5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("PlaneMesh_mcxtw")
+skeleton = NodePath("../CollisionShape3D")
 
-[node name="s4" type="StaticBody3D" parent="."]
-transform = Transform3D(-1, -1.50996e-07, 6.60024e-15, 0, -4.37114e-08, -1, 1.50996e-07, -1, 4.37114e-08, -0.257199, -7.59671, -9.0489)
-collision_mask = 5
-metadata/_edit_group_ = true
+[node name="Player 1" parent="." instance=ExtResource("2_yd7yg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33699, 0.0833988, 0.198029)
+app_event_left = "ui_left_1"
+app_event_right = "ui_right_1"
+app_event_up = "ui_up_1"
+app_event_down = "ui_down_1"
+app_event_jump = "ui_jump_1"
+app_event_grab = "ui_grab_1"
+app_event_throw = "ui_throw1"
 
-[node name="c" type="CollisionShape3D" parent="s4"]
-shape = SubResource("BoxShape3D_3xl7y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s4"]
-mesh = SubResource("BoxMesh_5rc6p")
-skeleton = NodePath("../../s4")
-
-[node name="s4" type="StaticBody3D" parent="s4"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.257197, -17.8113, -0.672275)
-collision_mask = 5
-metadata/_edit_group_ = true
-
-[node name="c" type="CollisionShape3D" parent="s4/s4"]
-shape = SubResource("BoxShape3D_3xl7y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s4/s4"]
-mesh = SubResource("BoxMesh_5rc6p")
-skeleton = NodePath("../../s4")
-
-[node name="s3" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -8.34465, -6.81147, 0)
-collision_mask = 5
-metadata/_edit_group_ = true
-
-[node name="c" type="CollisionShape3D" parent="s3"]
-shape = SubResource("BoxShape3D_3xl7y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s3"]
-mesh = SubResource("BoxMesh_5rc6p")
-skeleton = NodePath("../../s3")
-
-[node name="s2" type="StaticBody3D" parent="."]
-collision_mask = 5
-metadata/_edit_group_ = true
-
-[node name="c" type="CollisionShape3D" parent="s2"]
-shape = SubResource("BoxShape3D_3xl7y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s2"]
-mesh = SubResource("BoxMesh_5rc6p")
-skeleton = NodePath("../../s2")
-
-[node name="s" type="StaticBody3D" parent="."]
-collision_mask = 5
-
-[node name="c" type="CollisionShape3D" parent="s"]
-shape = SubResource("BoxShape3D_3xl7y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="s"]
-mesh = SubResource("BoxMesh_5rc6p")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.206597, 0.978426, 0, -0.978426, 0.206597, -0.049108, 14.0938, 3.39881)
-light_color = Color(0.8, 0.752941, 0.635294, 1)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.997995, 0.027679, -0.0569135, 0, 0.899288, 0.437355, 0.0632872, -0.436479, 0.897485, 2.11833, 7.35021, 12.358)
-environment = SubResource("Environment_c1hsu")
-fov = 74.3368
-
-[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
-script = ExtResource("4_ranp0")
-
-[node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.997995, 0.027679, -0.0569135, 0, 0.899288, 0.437355, 0.0632872, -0.436479, 0.897485, 2.11833, 7.35021, 12.358)
-script = ExtResource("4_j2xam")
-priority_override = false
-priority = 0
-follow_mode = 0
-look_at_mode = 3
-look_at_group = Array[NodePath]([NodePath(""), NodePath("")])
-tween_parameters = null
-tween_on_load = true
-inactive_update_mode = 0
-camera_3D_resource = null
-
-[node name="BasicBall" parent="." instance=ExtResource("2_h1m7j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
-
-[node name="Grandpa model" parent="." instance=ExtResource("3_rboba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01293, 0.760587, 0.378063)
-
-[node name="gobot2" parent="." instance=ExtResource("1_qinwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.91598, 0, 0)
+[node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45887, 0.166798, 0.396057)
 app_event_left = "ui_left_2"
 app_event_right = "ui_right_2"
 app_event_up = "ui_up_2"
@@ -132,12 +47,31 @@ app_event_jump = "ui_jump_2"
 app_event_grab = "ui_grab_2"
 app_event_throw = "ui_throw_2"
 
-[node name="gobot" parent="." instance=ExtResource("1_qinwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06929, 0, 0)
-app_event_left = "ui_left_1"
-app_event_right = "ui_right_1"
-app_event_up = "ui_up_1"
-app_event_down = "ui_down_1"
-app_event_jump = "ui_jump_1"
-app_event_grab = "ui_grab_1"
-app_event_throw = "ui_throw_1"
+[node name="BasicBall" parent="." instance=ExtResource("3_5ixmd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115122, 1.53392, 1.91166)
+
+[node name="House" parent="." instance=ExtResource("4_1a38q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.91439)
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(0.999976, 0.00253744, -0.0064033, 0, 0.929668, 0.368399, 0.00688773, -0.368391, 0.929646, 0, 3.63097, 9.144)
+script = ExtResource("5_r38wn")
+priority_override = false
+priority = 0
+follow_mode = 0
+look_at_mode = 3
+look_at_group = Array[NodePath]([NodePath("../Player 1"), NodePath("../Player 2")])
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+camera_3D_resource = null
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999976, 0.00253744, -0.0064033, 0, 0.929668, 0.368399, 0.00688773, -0.368391, 0.929646, 0, 3.63097, 9.144)
+fov = 74.2048
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("6_m8mol")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 0, 6.1582, 0)

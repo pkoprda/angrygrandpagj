@@ -21,12 +21,10 @@ func _on_body_entered(body):
 	emit_signal("exploded", transform.origin)
 	queue_free()
 	print("Bullet collision")
-	pass # Replace with function body.
 
 func _physics_process(delta):
 	velocity += g * delta
 	look_at(transform.origin + velocity.normalized(), Vector3.UP)
 	transform.origin += velocity * delta 
-	pass
 
 
