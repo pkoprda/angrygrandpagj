@@ -6,7 +6,7 @@ var friction = 0.5
 var SPEED = 5.0
 const MAX_ACCEL = Vector3(1,1,1)
 const JUMP_VELOCITY = 4.5
-const GRAB_DISTANCE = 1.5
+const GRAB_DISTANCE = 1
 var list_grabbable_obj = []
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
