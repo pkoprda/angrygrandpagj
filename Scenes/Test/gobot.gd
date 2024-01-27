@@ -1,5 +1,13 @@
 extends CharacterBody3D
 
+@export var app_event_left = ''
+@export var app_event_right = ''
+@export var app_event_up = ''
+@export var app_event_down = ''
+@export var app_event_jump = ''
+@export var app_event_grab = ''
+@export var app_event_throw = ''
+
 var grabbed_object : RigidBody3D = null
 var accel = 0.3
 var friction = 0.5
@@ -21,12 +29,12 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed(app_event_jump) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir = Input.get_vector(app_event_left, app_event_right, app_event_up, app_event_down)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = move_toward(velocity.x, direction.x * SPEED, friction)
@@ -55,10 +63,10 @@ func _physics_process(delta):
 	# Rotation part
 	
 func _process(delta):
-	if Input.is_action_pressed("grab") and grabbed_object == null:
+	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:
 		grab()
 	
-	if Input.is_action_just_released("grab") and grabbed_object != null:
+	if Input.is_action_just_released(app_event_grab) and grabbed_object != null:
 		release_grab()
 	
 func _on_grab_area_body_entered(body):
