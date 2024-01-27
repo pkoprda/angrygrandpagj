@@ -20,9 +20,6 @@ var list_grabbable_obj = []
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@export var hands : Array[PhysicalBone3D]
-
-
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -39,13 +36,13 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = move_toward(velocity.x, direction.x * SPEED, friction)
 		velocity.z = move_toward(velocity.z, direction.z * SPEED, friction)
-		if $AnimationPlayer.current_animation != "Run": 
-			$AnimationPlayer.play("Run")
+		if $AnimationPlayer.current_animation != "walking": 
+			$AnimationPlayer.play("walking")
 	else:
 		velocity.x = move_toward(velocity.x, 0, accel)
 		velocity.z = move_toward(velocity.z, 0, accel)
-		if $AnimationPlayer.current_animation != "Idle": 
-			$AnimationPlayer.play("Idle")
+		if $AnimationPlayer.current_animation != "idle": 
+			$AnimationPlayer.play("idle")
 	if grabbed_object != null:
 		var result_force = Vector3.ZERO
 		if velocity != Vector3.ZERO:
@@ -58,8 +55,6 @@ func _physics_process(delta):
 			move_and_slide()
 	else:
 		move_and_slide()
-	
-	# Rotation part
 	
 func _process(delta):
 	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:
@@ -87,7 +82,3 @@ func grab():
 func release_grab():
 	grabbed_object = null
 	accel = accel*2
-
-#func glue_arms():
-#	for b in hands : 
-#		

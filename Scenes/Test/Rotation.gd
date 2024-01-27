@@ -2,8 +2,8 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	$Skeleton3D.rotation_degrees.x = 90
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var p_dir = get_parent().velocity
@@ -12,4 +12,4 @@ func _process(delta):
 			var ve = get_parent().grabbed_object.global_position - get_parent().global_position
 			look_at(get_parent().global_position - ve)
 		else : 
-			look_at(get_parent().global_position-p_dir)
+			look_at(get_parent().position - p_dir)
