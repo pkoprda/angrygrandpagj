@@ -18,7 +18,7 @@ var bones
 func _ready():
 	physical_bones_start_simulation()
 	bones = get_children().filter(func(x): return x is PhysicalBone3D)
-	load("res://Models/Test/gobot/gobot_skin.tscn")
+
 func _physics_process(delta):
 	for b in bones:
 		var target_transform: Transform3D = target_skeleton.global_transform * target_skeleton.get_bone_global_pose(b.get_bone_id())
