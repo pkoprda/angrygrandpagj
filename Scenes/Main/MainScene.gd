@@ -7,13 +7,12 @@ var BulletScenePath = "res://Scenes/Weapons/Bullet.tscn"
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	
-func spawnBullet(shooter_translation: Vector3):
+
+func spawnBullet(shooter_origin: Vector3):
 	var b = Bullet.instance()
-	add_child(b)
-	b.transform.origin = shooter_translation
+	$Bullets.add_child(b)
+	b.transform.origin = shooter_origin
 	b.velocity = -b.transform.basis.z * b.muzzle_velocity

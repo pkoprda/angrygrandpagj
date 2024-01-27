@@ -88,6 +88,8 @@ func release_grab():
 	grabbed_object = null
 	accel = accel*2
 
+
+
 #func glue_arms():
 #	for b in hands : 
 #		
