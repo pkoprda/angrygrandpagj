@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://la4ke8p4nkw0"]
+[gd_scene load_steps=39 format=3 uid="uid://la4ke8p4nkw0"]
 
 [ext_resource type="Script" path="res://Scenes/Test/gobot.gd" id="1_8gojr"]
 [ext_resource type="Script" path="res://Scenes/Test/Rotation.gd" id="2_pxbcl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bt5o0sr6peltq" path="res://Models/Test/gobot/model/gobot_gobot_diffuse.png" id="3_7i4ue"]
 [ext_resource type="Texture2D" uid="uid://cgkj45d67dalm" path="res://Models/Test/gobot/model/gobot_gobot_roughness.png" id="4_t2jgc"]
 [ext_resource type="Texture2D" uid="uid://d28w5bql3g21l" path="res://Models/Test/gobot/model/gobot_gobot_normal.png" id="5_7ct4v"]
+[ext_resource type="PackedScene" uid="uid://b0ljs4tl5gk4l" path="res://new grandpa.glb" id="7_474fn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mhmyh"]
 radius = 0.156736
@@ -2687,6 +2688,9 @@ skin = SubResource("Skin_4lgdh")
 libraries = {
 "": SubResource("AnimationLibrary_q3psg")
 }
+
+[node name="new grandpa" parent="." instance=ExtResource("7_474fn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.277379, 0, 0.533129)
 
 [connection signal="body_entered" from="GrabArea" to="." method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="GrabArea" to="." method="_on_grab_area_body_exited"]
