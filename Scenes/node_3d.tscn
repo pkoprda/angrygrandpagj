@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=7 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="1_qinwk"]
 [ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="2_h1m7j"]
+[ext_resource type="PackedScene" uid="uid://cfawctv6y47kc" path="res://Grandpa model.glb" id="3_rboba"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xl7y"]
 size = Vector3(16.5176, 0.468506, 17.8281)
@@ -100,3 +101,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32802, 0)
 
 [node name="BasicBall" parent="." instance=ExtResource("2_h1m7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+
+[node name="Grandpa model" parent="." instance=ExtResource("3_rboba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01293, 0.760587, 0.378063)
