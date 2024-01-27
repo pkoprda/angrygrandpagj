@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=10 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="1_qinwk"]
+[ext_resource type="Script" path="res://Scenes/Test/gobot-1.gd" id="2_5l3i8"]
+[ext_resource type="Script" path="res://Scenes/Test/gobot-2.gd" id="3_m4j10"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="4_j2xam"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_ranp0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xl7y"]
 size = Vector3(16.5176, 0.468506, 17.8281)
@@ -14,6 +18,20 @@ ambient_light_source = 3
 ambient_light_color = Color(1, 0.901961, 0.521569, 1)
 ambient_light_energy = 5.56
 reflected_light_source = 2
+
+[sub_resource type="GDScript" id="GDScript_deh2q"]
+script/source = "extends Camera3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="Main" type="Node3D"]
 
@@ -89,10 +107,31 @@ mesh = SubResource("BoxMesh_5rc6p")
 transform = Transform3D(1, 0, 0, 0, 0.206597, 0.978426, 0, -0.978426, 0.206597, -0.049108, 14.0938, 3.39881)
 light_color = Color(0.8, 0.752941, 0.635294, 1)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.686073, 0.727533, 0, -0.727533, 0.686073, -0.049108, 9.8908, 10.56)
-environment = SubResource("Environment_c1hsu")
-fov = 68.0
-
 [node name="gobot" parent="." instance=ExtResource("1_qinwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32802, 0)
+transform = Transform3D(0.999175, 0, 0.0406026, 0, 1, 0, -0.0406026, 0, 0.999175, -5.80432, 1.32802, 0)
+script = ExtResource("2_5l3i8")
+
+[node name="gobot2" parent="." instance=ExtResource("1_qinwk")]
+transform = Transform3D(0.999175, 0, 0.0406026, 0, 1, 0, -0.0406026, 0, 0.999175, 5.804, 1.328, 0)
+script = ExtResource("3_m4j10")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.87899, 0.476839, 0, -0.476839, 0.87899, -0.00015974, 7.35021, 11.1011)
+environment = SubResource("Environment_c1hsu")
+script = SubResource("GDScript_deh2q")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("4_ranp0")
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.87899, 0.476839, 0, -0.476839, 0.87899, -0.00015974, 7.35021, 11.1011)
+script = ExtResource("4_j2xam")
+priority_override = false
+priority = 0
+follow_mode = 0
+look_at_mode = 3
+look_at_group = Array[NodePath]([NodePath("../gobot"), NodePath("../gobot2")])
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+camera_3D_resource = null
