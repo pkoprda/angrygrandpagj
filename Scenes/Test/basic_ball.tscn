@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpalftlsx21gp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sdyxn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_awg16"]
+
+[node name="BasicBall" type="RigidBody3D"]
+collision_mask = 3
+linear_damp = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_sdyxn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_awg16")
