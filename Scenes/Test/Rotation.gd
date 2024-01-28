@@ -12,4 +12,5 @@ func _process(delta):
 			var ve = get_parent().grabbed_object.global_position - get_parent().global_position
 			look_at(get_parent().global_position - ve)
 		else : 
-			look_at(get_parent().position - p_dir)
+			if position != get_parent().position:
+				look_at(get_parent().position - p_dir)

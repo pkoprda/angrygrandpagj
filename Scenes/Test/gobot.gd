@@ -22,6 +22,12 @@ const JUMP_VELOCITY = 4.5
 const GRAB_DISTANCE = 1
 var list_grabbable_obj = []
 
+signal findChair(player)
+
+var resting = false
+var gotochairstate = false
+var closest_chair = null
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -30,14 +36,19 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed(app_event_jump) and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	var direction = null
+	if ! gotochairstate: 
+		#print("One")
+		# Handle jump.
+		if Input.is_action_just_pressed(app_event_jump) and is_on_floor():
+			velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector(app_event_left, app_event_right, app_event_up, app_event_down)
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var input_dir = Input.get_vector(app_event_left, app_event_right, app_event_up, app_event_down)
+		direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	else:
+		direction =( transform.basis * (closest_chair.position - position)).normalized()
 	if direction:
 		velocity.x = move_toward(velocity.x, direction.x * SPEED, friction)
 		velocity.z = move_toward(velocity.z, direction.z * SPEED, friction)
@@ -62,14 +73,19 @@ func _physics_process(delta):
 		move_and_slide()
 	
 	# Stamina
-	if stamina == MIN_STAMINA:
-		#TODO: player cannot move a grandpa and grandpa automatically moves to the closest chair
-		pass
+	if stamina <= MIN_STAMINA and !gotochairstate:
+		stamina = MIN_STAMINA
+		emit_signal("findChair", self)
 	if character_is_moving():
 		lower_stamina()
-	# elif character_is_sitting():
-	#	stamina += 3
-	
+	if resting:
+		if gotochairstate : 
+			gotochairstate = false 
+		stamina += 25*delta
+		if stamina >= MAX_STAMINA:
+			stamina = MAX_STAMINA
+		$"SubViewport/StaminaBar3D".value = stamina
+
 func _process(delta):
 	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:
 		grab()
@@ -102,12 +118,13 @@ func lower_stamina():
 	or Input.is_action_just_pressed(app_event_right) \
 	or Input.is_action_just_pressed(app_event_up) \
 	or Input.is_action_just_pressed(app_event_down):
-		$"SubViewport/StaminaBar3D".value -= 1
+		stamina -= 1
 	if Input.is_action_just_pressed(app_event_jump) and is_on_floor():
-		$"SubViewport/StaminaBar3D".value -= 3
+		stamina -= 3
 	if Input.is_action_just_pressed(app_event_grab) \
 	or Input.is_action_just_pressed(app_event_throw):
-		$"SubViewport/StaminaBar3D".value -= 5
+		stamina -= 5
+	$"SubViewport/StaminaBar3D".value = stamina
 
 func character_is_moving():
 	return  Input.is_action_just_pressed(app_event_left) \
@@ -120,4 +137,45 @@ func character_is_moving():
 
 func get_hit(bullet_type, impact_part, bullet_transform):
 	stamina -= $"/root/Global".bullet_types[bullet_type]["damage"]
+	$"SubViewport/StaminaBar3D".value = stamina
+	
 	impact_part.apply_impulse(bullet_transform.basis.z.normalized()*10,bullet_transform.origin - impact_part.transform.origin)
+
+func rest():
+	resting = true
+	if gotochairstate : 
+		gotochairstate = false
+	#enable_collisions()
+
+func stop_resting():
+	resting = false
+
+
+func gotoChair(chair):
+	gotochairstate = true
+	closest_chair = chair
+	#disable_collisions()
+
+#func disable_collisions():
+#	for b in $"Collision/Skeleton3D".get_children():
+#		if b is PhysicalBone3D:
+#			b.set_collision_layer_value(3,false)
+#			b.set_collision_layer_value(4,false)
+#			b.set_collision_mask_value(1,false)
+#	set_collision_layer_value(1,false)
+#	set_collision_mask_value(1,false)
+#	set_collision_layer_value(9,true)
+#	set_collision_mask_value(9,true)
+#	
+#func enable_collisions():
+#	for b in $"Collision/Skeleton3D".get_children():
+#		if b is PhysicalBone3D:
+#			b.set_collision_layer_value(3,true)
+#			b.set_collision_layer_value(4,true)
+#			b.set_collision_mask_value(1,true)
+#			print(b)
+#	set_collision_layer_value(9,false)
+#	set_collision_mask_value(9,false)
+#	set_collision_layer_value(1,true)
+#	set_collision_mask_value(1,true)
+	

@@ -33,3 +33,35 @@ func _on_explosion_signal(transform, bullet_type, body):
 		
 		player.get_hit(bullet_type, body, transform)
 		
+
+func find_chair(player):
+	var chair = $"Chairs/Chair"
+	var p1 = player.position - $"Chairs/Chair".position
+	var p2 = player.position - $"Chairs/Chair2".position
+	if p1 >= p2 :
+		chair = $"Chairs/Chair2"
+	player.gotoChair(chair)
+
+func _on_player_1_find_chair(player):
+	find_chair(player)
+
+func _on_player_2_find_chair(player):
+	find_chair(player)
+
+func _on_chair_want_to_rest(body):
+	var player = body
+	while player.get_parent() != null and player != $"Player 1" and player != $"Player 2" :
+		player = player.get_parent()
+	if player.get_parent() == null and player != $"Player 1" and player != $"Player 2":
+		return
+	
+	player.rest()
+
+	
+func _on_chair_stop_resting(body):
+	var player = body
+	while player.get_parent() != null and player != $"Player 1" and player != $"Player 2" :
+		player = player.get_parent()
+	if player.get_parent() == null and player != $"Player 1" and player != $"Player 2":
+		return
+	player.stop_resting()

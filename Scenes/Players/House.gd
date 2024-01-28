@@ -47,7 +47,6 @@ func generate_wall_collisions(wall:MeshInstance3D):
 	new_area.connect("area_entered", func(body): _handle_hit(collision_area, body))
 
 func _handle_hit(wall_hit:CollisionShape3D, body:Node3D):
-	print(body, wall_hit.get_child(0))
 	if body.is_in_group("bullets") : 
 		life_settings[wall_hit.get_child(0).name] = life_settings[wall_hit.get_child(0).name] -10 #To change later to adapt to the different types of bullets
 		if life_settings[wall_hit.get_child(0).name] <0 : 

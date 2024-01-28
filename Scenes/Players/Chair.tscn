@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdfdlbfsuh8qv"]
+
+[ext_resource type="Script" path="res://Scenes/Players/Chair.gd" id="1_2l5k6"]
+[ext_resource type="ArrayMesh" uid="uid://dg3khgkhorrir" path="res://Models/Other/Chair.obj" id="1_406r6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wgkme"]
+size = Vector3(2.104, 1.5141, 2.06543)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0ggnx"]
+height = 0.888942
+
+[node name="Chair" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387403, 0, 0)
+collision_layer = 257
+collision_mask = 257
+script = ExtResource("1_2l5k6")
+
+[node name="Chair" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.332654, 0, 0.00677109)
+mesh = ExtResource("1_406r6")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 257
+collision_mask = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.384857, 0.682454, -0.101632)
+shape = SubResource("BoxShape3D_wgkme")
+
+[node name="rigidcollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.318357, 0.6, 0)
+shape = SubResource("CylinderShape3D_0ggnx")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

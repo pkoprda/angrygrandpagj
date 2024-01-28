@@ -1,20 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dc7ynyseyd5l3"]
+[gd_scene load_steps=14 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
 [ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
-<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 [ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
-=======
-[ext_resource type="PackedScene" uid="uid://j216mnl2o6b0" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
-[ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
-[ext_resource type="PackedScene" uid="uid://bg15h5k33kw52" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
->>>>>>> destruction
+[ext_resource type="PackedScene" uid="uid://cjgkde2pabw48" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
+[ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(17.338, 0.2, 14.675)
@@ -32,6 +26,8 @@ viewport_path = NodePath("Player 2/SubViewport")
 script = ExtResource("1_w37ph")
 
 [node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 257
+collision_mask = 271
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0166016, 0)
@@ -64,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 texture = SubResource("ViewportTexture_lw43f")
 
 [node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67031, 0.670864, 0.396057)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67031, 0.670864, 4.39606)
 app_event_left = "ui_left_2"
 app_event_right = "ui_right_2"
 app_event_up = "ui_up_2"
@@ -90,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.999189, -0.0117021, 0.0384945, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
+transform = Transform3D(0.998804, -0.0433687, 0.0224503, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -103,8 +99,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999189, -0.0117021, 0.0384945, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
-fov = 74.9345
+transform = Transform3D(0.998804, -0.0433687, 0.0224503, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
+fov = 74.8478
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -114,11 +110,24 @@ transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 
 
 [node name="FlashTimer" type="Timer" parent="."]
 
-[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
-
 [node name="Bullets" type="Node3D" parent="."]
 
 [node name="Weapon" parent="." instance=ExtResource("7_jdhwf")]
-transform = Transform3D(-0.885061, 0, 0.465475, 0, 1, 0, -0.465475, 0, -0.885061, -1.97765, 0.153314, 3.36471)
+transform = Transform3D(-0.0515173, 0, 0.998672, 0, 1, 0, -0.998672, 0, -0.0515173, -1.97765, 0.762069, 3.36471)
 
+[node name="Chairs" type="Node3D" parent="."]
+
+[node name="Chair" parent="Chairs" instance=ExtResource("9_og7b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 2)
+
+[node name="Chair2" parent="Chairs" instance=ExtResource("9_og7b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
+
+[connection signal="findChair" from="Player 1" to="." method="_on_player_1_find_chair"]
+[connection signal="findChair" from="Player 2" to="." method="_on_player_2_find_chair"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
 [connection signal="shooting_signal" from="Weapon" to="." method="_on_weapon_shooting_signal"]
+[connection signal="stop_resting" from="Chairs/Chair" to="." method="_on_chair_stop_resting"]
+[connection signal="want_to_rest" from="Chairs/Chair" to="." method="_on_chair_want_to_rest"]
+[connection signal="stop_resting" from="Chairs/Chair2" to="." method="_on_chair_stop_resting"]
+[connection signal="want_to_rest" from="Chairs/Chair2" to="." method="_on_chair_want_to_rest"]
