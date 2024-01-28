@@ -1,17 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc7ynyseyd5l3"]
+[gd_scene load_steps=12 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
-[ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
-[ext_resource type="PackedScene" uid="uid://j216mnl2o6b0" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
+[ext_resource type="PackedScene" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
+[ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(17.338, 0.2, 14.675)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mcxtw"]
 size = Vector2(20, 20)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lw43f"]
+viewport_path = NodePath("Player 1/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gqc7v"]
+viewport_path = NodePath("Player 2/SubViewport")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w37ph")
@@ -35,7 +42,17 @@ app_event_up = "ui_up_1"
 app_event_down = "ui_down_1"
 app_event_jump = "ui_jump_1"
 app_event_grab = "ui_grab_1"
-app_event_throw = "ui_throw1"
+app_event_throw = "ui_throw_1"
+
+[node name="SubViewport" type="SubViewport" parent="Player 1"]
+disable_3d = true
+transparent_bg = true
+
+[node name="StaminaBar3D" parent="Player 1/SubViewport" instance=ExtResource("7_3g8fu")]
+
+[node name="Sprite3D" type="Sprite3D" parent="Player 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+texture = SubResource("ViewportTexture_lw43f")
 
 [node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45887, 0.166798, 0.396057)
@@ -46,6 +63,16 @@ app_event_down = "ui_down_2"
 app_event_jump = "ui_jump_2"
 app_event_grab = "ui_grab_2"
 app_event_throw = "ui_throw_2"
+
+[node name="SubViewport" type="SubViewport" parent="Player 2"]
+disable_3d = true
+transparent_bg = true
+
+[node name="StaminaBar3D" parent="Player 2/SubViewport" instance=ExtResource("7_3g8fu")]
+
+[node name="Sprite3D" type="Sprite3D" parent="Player 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+texture = SubResource("ViewportTexture_gqc7v")
 
 [node name="BasicBall" parent="." instance=ExtResource("3_5ixmd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115122, 1.53392, 1.91166)
@@ -68,7 +95,7 @@ camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999976, 0.00253757, -0.00640363, 0, 0.929668, 0.3684, 0.00688808, -0.368391, 0.929646, 0, 3.63097, 9.144)
-fov = 74.9471
+fov = 74.7131
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
