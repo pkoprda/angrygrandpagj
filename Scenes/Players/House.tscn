@@ -3331,8 +3331,7 @@ shadow_mesh = SubResource("ArrayMesh_6bksr")
 script = ExtResource("1_yd56c")
 house_selected = NodePath("House 1")
 
-[node name="House 1" type="Node3D" parent="."]
-visible = false
+[node name="House 1" type="RigidBody3D" parent="."]
 
 [node name="doorway_doorSolid" type="MeshInstance3D" parent="House 1"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
