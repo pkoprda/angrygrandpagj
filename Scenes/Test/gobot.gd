@@ -61,9 +61,6 @@ func _physics_process(delta):
 	else:
 		move_and_slide()
 	
-	# Rotation part
-	
-	
 	# Stamina
 	if stamina == MIN_STAMINA:
 		#TODO: player cannot move a grandpa and grandpa automatically moves to the closest chair
@@ -120,8 +117,7 @@ func character_is_moving():
 	or		Input.is_action_just_pressed(app_event_jump) \
 	or		Input.is_action_just_pressed(app_event_grab) \
 	or		Input.is_action_just_pressed(app_event_throw)
-	
 
-#func glue_arms():
-#	for b in hands : 
-#
+func get_hit(bullet_type, impact_part, bullet_transform):
+	stamina -= $"/root/Global".bullet_types[bullet_type]["damage"]
+	impact_part.apply_impulse(bullet_transform.basis.z.normalized()*10,bullet_transform.origin - impact_part.transform.origin)

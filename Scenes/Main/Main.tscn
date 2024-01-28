@@ -1,12 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=13 format=3 uid="uid://dc7ynyseyd5l3"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
 [ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 [ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
+=======
+[ext_resource type="PackedScene" uid="uid://j216mnl2o6b0" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
+[ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
+[ext_resource type="PackedScene" uid="uid://bg15h5k33kw52" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
+>>>>>>> destruction
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(17.338, 0.2, 14.675)
@@ -31,11 +39,12 @@ shape = SubResource("BoxShape3D_7fptj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 mesh = SubResource("PlaneMesh_mcxtw")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="Player 1" parent="." instance=ExtResource("2_yd7yg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33699, 0.0833988, 0.198029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16513, 0.0833988, 0.198029)
 app_event_left = "ui_left_1"
 app_event_right = "ui_right_1"
 app_event_up = "ui_up_1"
@@ -55,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 texture = SubResource("ViewportTexture_lw43f")
 
 [node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45887, 0.166798, 0.396057)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67031, 0.670864, 0.396057)
 app_event_left = "ui_left_2"
 app_event_right = "ui_right_2"
 app_event_up = "ui_up_2"
@@ -75,13 +84,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 texture = SubResource("ViewportTexture_gqc7v")
 
 [node name="BasicBall" parent="." instance=ExtResource("3_5ixmd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115122, 1.53392, 1.91166)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 
 [node name="House" parent="." instance=ExtResource("4_1a38q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.91439)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.999976, 0.00253757, -0.00640363, 0, 0.929668, 0.3684, 0.00688808, -0.368391, 0.929646, 0, 3.63097, 9.144)
+transform = Transform3D(0.999189, -0.0117021, 0.0384945, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -94,8 +103,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999976, 0.00253757, -0.00640363, 0, 0.929668, 0.3684, 0.00688808, -0.368391, 0.929646, 0, 3.63097, 9.144)
-fov = 74.9952
+transform = Transform3D(0.999189, -0.0117021, 0.0384945, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
+fov = 74.9345
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -106,3 +115,10 @@ transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 
 [node name="FlashTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
+
+[node name="Bullets" type="Node3D" parent="."]
+
+[node name="Weapon" parent="." instance=ExtResource("7_jdhwf")]
+transform = Transform3D(-0.885061, 0, 0.465475, 0, 1, 0, -0.465475, 0, -0.885061, -1.97765, 0.153314, 3.36471)
+
+[connection signal="shooting_signal" from="Weapon" to="." method="_on_weapon_shooting_signal"]

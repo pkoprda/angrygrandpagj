@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjgkde2pabw48"]
+[gd_scene load_steps=3 format=3 uid="uid://bg15h5k33kw52"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Weapon.gd" id="1_c52vf"]
-[ext_resource type="PackedScene" uid="uid://pe6vdnoku4t0" path="res://Scenes/Weapons/BasicWeapon.tscn" id="2_ei302"]
+[ext_resource type="PackedScene" uid="uid://ci4l8lj4w76hn" path="res://Scenes/Weapons/BasicWeapon.tscn" id="2_ei302"]
 
 [node name="Weapon" type="Node3D"]
 script = ExtResource("1_c52vf")
