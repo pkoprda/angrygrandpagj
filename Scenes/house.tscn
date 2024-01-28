@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://sw03arcg8s2m"]
+[gd_scene load_steps=4 format=3 uid="uid://bv5s3uyjiqwah"]
 
 [ext_resource type="Script" path="res://Scenes/house.gd" id="1_y1n77"]
 [ext_resource type="PackedScene" uid="uid://coe8ee3s5tfy3" path="res://fractured_house.glb" id="2_6usom"]
