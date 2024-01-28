@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx7wdc515w5gb"]
+
+[ext_resource type="PackedScene" uid="uid://sw03arcg8s2m" path="res://Scenes/house.tscn" id="1_5t2hl"]
+
+[sub_resource type="Environment" id="Environment_54trv"]
+
+[node name="TestExplosion" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.949961, 0.312368, 0, -0.312368, 0.949961, 0, 3.56759, 5.9259)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_54trv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.97935, 0.202172, 0, -0.202172, 0.97935, 0, 1.05321, 2.32813)
+
+[node name="House" parent="." instance=ExtResource("1_5t2hl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.197489, 1.19209e-07, -0.990656)

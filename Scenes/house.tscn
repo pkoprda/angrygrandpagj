@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://sw03arcg8s2m"]
+
+[ext_resource type="Script" path="res://Scenes/house.gd" id="1_y1n77"]
+[ext_resource type="PackedScene" uid="uid://coe8ee3s5tfy3" path="res://fractured_house.glb" id="2_6usom"]
+[ext_resource type="PackedScene" uid="uid://conypxm33elby" path="res://house.glb" id="3_v11py"]
+
+[node name="House" type="Node3D"]
+script = ExtResource("1_y1n77")
+
+[node name="fractured_house" parent="." instance=ExtResource("2_6usom")]
+
+[node name="house" parent="." instance=ExtResource("3_v11py")]
+
+[node name="ExplodeOrigin" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.942378, -2.02382)
+
+[editable path="fractured_house"]
+[editable path="house"]

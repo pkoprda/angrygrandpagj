@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
+
 uid="uid://bvn6nfuarfv85"
+
 path="res://.godot/imported/ambience_air.wav-f2b0e28f1e12a9dfecfcc3a548970b0c.sample"
 
 [deps]

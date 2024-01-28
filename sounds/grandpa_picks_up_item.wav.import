@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
+
 uid="uid://de32hflfktwwh"
+
 path="res://.godot/imported/grandpa_picks_up_item.wav-8380bc29a3c6de4379501d2e295c8264.sample"
 
 [deps]
