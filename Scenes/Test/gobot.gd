@@ -8,6 +8,11 @@ extends CharacterBody3D
 @export var app_event_grab = ''
 @export var app_event_throw = ''
 
+var stamina = 100
+var stamine_charge_rate = 2
+var MIN_STAMINA = 0
+var MAX_STAMINA = 100
+
 var grabbed_object : RigidBody3D = null
 var accel = 0.3
 var friction = 0.5
@@ -56,6 +61,18 @@ func _physics_process(delta):
 	else:
 		move_and_slide()
 	
+	# Rotation part
+	
+	
+	# Stamina
+	if stamina == MIN_STAMINA:
+		#TODO: player cannot move a grandpa and grandpa automatically moves to the closest chair
+		pass
+	if character_is_moving():
+		lower_stamina()
+	# elif character_is_sitting():
+	#	stamina += 3
+	
 func _process(delta):
 	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:
 		grab()
@@ -82,3 +99,29 @@ func grab():
 func release_grab():
 	grabbed_object = null
 	accel = accel*2
+
+func lower_stamina():
+	if Input.is_action_just_pressed(app_event_left) \
+	or Input.is_action_just_pressed(app_event_right) \
+	or Input.is_action_just_pressed(app_event_up) \
+	or Input.is_action_just_pressed(app_event_down):
+		$"SubViewport/StaminaBar3D".value -= 1
+	if Input.is_action_just_pressed(app_event_jump) and is_on_floor():
+		$"SubViewport/StaminaBar3D".value -= 3
+	if Input.is_action_just_pressed(app_event_grab) \
+	or Input.is_action_just_pressed(app_event_throw):
+		$"SubViewport/StaminaBar3D".value -= 5
+
+func character_is_moving():
+	return  Input.is_action_just_pressed(app_event_left) \
+	or		Input.is_action_just_pressed(app_event_right) \
+	or		Input.is_action_just_pressed(app_event_up) \
+	or		Input.is_action_just_pressed(app_event_down) \
+	or		Input.is_action_just_pressed(app_event_jump) \
+	or		Input.is_action_just_pressed(app_event_grab) \
+	or		Input.is_action_just_pressed(app_event_throw)
+	
+
+#func glue_arms():
+#	for b in hands : 
+#
