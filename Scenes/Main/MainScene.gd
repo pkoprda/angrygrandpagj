@@ -2,9 +2,11 @@ extends Node
 
 var BulletScenePath = "res://Scenes/Weapons/Bullet.tscn"
 @onready var Bullet = load(BulletScenePath)
+var ambience_sound_player : AudioStreamPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	initialize_sounds()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,3 +67,11 @@ func _on_chair_stop_resting(body):
 	if player.get_parent() == null and player != $"Player 1" and player != $"Player 2":
 		return
 	player.stop_resting()
+
+func initialize_sounds():
+	ambience_sound_player = $Sounds/WorldAmbienceSound
+	ambience_sound_player.connect("finished", _on_ambience_sound_finished)
+	ambience_sound_player.play()
+	
+func _on_ambience_sound_finished():
+	ambience_sound_player.play()
