@@ -95,10 +95,14 @@ camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999976, 0.00253757, -0.00640363, 0, 0.929668, 0.3684, 0.00688808, -0.368391, 0.929646, 0, 3.63097, 9.144)
-fov = 74.7131
+fov = 74.9952
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 0, 6.1582, 0)
+
+[node name="FlashTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
