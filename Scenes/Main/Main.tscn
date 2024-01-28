@@ -1,16 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=17 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
-[ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://dij5xci3frgco" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
-[ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
+[ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
 [ext_resource type="PackedScene" uid="uid://cjgkde2pabw48" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
-[ext_resource type="AudioStream" uid="uid://w4jqg511k7hv" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
+[ext_resource type="AudioStream" uid="uid://de03w833ts00n" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
 [ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
-[ext_resource type="AudioStream" uid="uid://bvn6nfuarfv85" path="res://sounds/ambience_air.wav" id="11_uys52"]
+[ext_resource type="Script" path="res://Scenes/Main/Timer.gd" id="9_y1rbp"]
+[ext_resource type="AudioStream" uid="uid://bkv1dbkx7nciu" path="res://sounds/ambience_air.wav" id="11_uys52"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(300, 0.2, 300)
@@ -26,6 +27,32 @@ viewport_path = NodePath("Player 2/SubViewport")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w37ph")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("9_y1rbp")
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="Control"]
+wait_time = 300.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 257
@@ -103,11 +130,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.998807, -0.0433687, 0.0224503, 0, 0.459718, 0.888065, -0.048835, -0.887006, 0.459169, 0, 10.1639, 7.35724)
-fov = 61.6692
-
-fov = 74.5863
-
+transform = Transform3D(0.998804, -0.0433687, 0.0224504, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
+fov = 74.7719
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
