@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrxw1hnoyska"]
+
+[ext_resource type="Script" path="res://Scenes/ui.gd" id="1_etvx7"]
+
+[sub_resource type="Theme" id="Theme_jma1m"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_etvx7")
+
+[node name="before_game_screen" type="Node2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="before_game_screen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 541.0
+offset_top = 274.0
+offset_right = 706.0
+offset_bottom = 375.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="before_game_screen/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme = SubResource("Theme_jma1m")
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="before_game_screen/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="before_game_screen/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
+text = "Quit"
+
+[connection signal="pressed" from="before_game_screen/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="before_game_screen/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

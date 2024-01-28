@@ -17,3 +17,7 @@ func spawnBullet(shooter_translation: Vector3):
 	add_child(b)
 	b.transform.origin = shooter_translation
 	b.velocity = -b.transform.basis.z * b.muzzle_velocity
+
+
+func _on_flash_timer_timeout():
+	pass
