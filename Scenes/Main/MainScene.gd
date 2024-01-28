@@ -19,5 +19,5 @@ func spawnBullet(shooter_translation: Vector3):
 	b.velocity = -b.transform.basis.z * b.muzzle_velocity
 
 
-func _on_flash_timer_timeout():
-	pass
+func _on_timer_timeout():
+	get_tree().change_scene_to_file("res://Scenes/ui_end.tscn")

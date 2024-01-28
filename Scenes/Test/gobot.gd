@@ -12,6 +12,7 @@ var stamina = 100
 var stamine_charge_rate = 2
 var MIN_STAMINA = 0
 var MAX_STAMINA = 100
+var character_is_sitting = false
 
 var grabbed_object : RigidBody3D = null
 var accel = 0.3
@@ -70,8 +71,8 @@ func _physics_process(delta):
 		pass
 	if character_is_moving():
 		lower_stamina()
-	# elif character_is_sitting():
-	#	stamina += 3
+	if character_is_sitting:
+		stamina += 3
 	
 func _process(delta):
 	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:

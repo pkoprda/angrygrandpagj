@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://b42xbt2slvrfk"]
+[gd_scene load_steps=18 format=3 uid="uid://b42xbt2slvrfk"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
-[ext_resource type="PackedScene" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://dij5xci3frgco" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 [ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
+[ext_resource type="ArrayMesh" uid="uid://cfw45kde8iu07" path="res://Models/Other/Chair.obj" id="8_co8rq"]
+[ext_resource type="Script" path="res://Scenes/Main/Timer.gd" id="9_y1rbp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(17.338, 0.2, 14.675)
@@ -20,8 +22,44 @@ viewport_path = NodePath("Player 1/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_gqc7v"]
 viewport_path = NodePath("Player 2/SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xjmp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hojvu"]
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2gwy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktch3"]
+metallic = 0.5
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w37ph")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("9_y1rbp")
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="Control"]
+wait_time = 300.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
@@ -95,7 +133,7 @@ camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999976, 0.00253757, -0.00640363, 0, 0.929668, 0.3684, 0.00688808, -0.368391, 0.929646, 0, 3.63097, 9.144)
-fov = 74.9952
+fov = 74.1854
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -103,6 +141,18 @@ script = ExtResource("6_m8mol")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 0, 6.1582, 0)
 
-[node name="FlashTimer" type="Timer" parent="."]
+[node name="Chair 1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.757462, 0, -0.652879, 0, 1, 0, 0.652879, 0, 0.757462, -7.87807, 0.103994, 0.34066)
+layers = 31
+material_override = SubResource("StandardMaterial3D_8xjmp")
+material_overlay = SubResource("StandardMaterial3D_hojvu")
+mesh = ExtResource("8_co8rq")
 
-[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
+[node name="Chair 2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.760667, 0, -0.649143, 0, 1, 0, 0.649143, 0, -0.760667, 7.35619, 0.103994, 0.34066)
+layers = 31
+material_override = SubResource("StandardMaterial3D_e2gwy")
+material_overlay = SubResource("StandardMaterial3D_ktch3")
+mesh = ExtResource("8_co8rq")
+
+[connection signal="timeout" from="Control/Timer" to="." method="_on_timer_timeout"]
