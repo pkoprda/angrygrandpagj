@@ -4,6 +4,7 @@ extends Node3D
 @export var house_selected: Node3D
 
 var life_settings = {}
+var destruction_sounds = []
 
 signal wall_get_hit(wall)
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +15,11 @@ func _ready():
 		life_settings[p.name] = house_parts_life_amount
 		generate_wall_collisions(p)
 		p.get_parent().add_to_group("walls")
+	randomize()
+	destruction_sounds.append(preload("res://sounds/house_desctruction_01.wav"))
+	destruction_sounds.append(preload("res://sounds/house_desctruction_02.wav"))
+	destruction_sounds.append(preload("res://sounds/house_desctruction_03.wav"))
+	$HouseDestruction.stream=destruction_sounds.front()
 
 func generate_wall_collisions(wall:MeshInstance3D):
 	var collision_area = CollisionShape3D.new()
@@ -51,4 +57,12 @@ func _handle_hit(wall_hit:CollisionShape3D, body:Node3D):
 		life_settings[wall_hit.get_child(0).name] = life_settings[wall_hit.get_child(0).name] -10 #To change later to adapt to the different types of bullets
 		if life_settings[wall_hit.get_child(0).name] <0 : 
 			wall_hit.queue_free()
+			$HouseDestruction.play()
 
+func destruction_sound_random(s:Array) -> void:
+	s.shuffle()
+	$HouseDestruction.stream=destruction_sounds.front()
+
+func _on_house_destruction_finished():
+	print("_on_house_destruction_finished()")
+	destruction_sound_random(destruction_sounds)

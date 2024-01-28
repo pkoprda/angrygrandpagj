@@ -1,14 +1,21 @@
+
 [gd_scene load_steps=17 format=3 uid="uid://b42xbt2slvrfk"]
+
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
 [ext_resource type="PackedScene" uid="uid://dij5xci3frgco" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
+[ext_resource type="AudioStream" uid="uid://do7ldmvgcf68" path="res://sounds/multiple_foot_steps.wav" id="4_ucs5r"]
+[ext_resource type="AudioStream" uid="uid://de32hflfktwwh" path="res://sounds/grandpa_picks_up_item.wav" id="5_duik3"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 [ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
 [ext_resource type="PackedScene" uid="uid://cjgkde2pabw48" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
-[ext_resource type="AudioStream" uid="uid://de03w833ts00n" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
+
+[ext_resource type="AudioStream" uid="uid://c8atsjnaniejj" path="res://sounds/meaty_impact_01.wav" id="7_w76mn"]
+[ext_resource type="AudioStream" uid="uid://w4jqg511k7hv" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
+
 [ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
 [ext_resource type="Script" path="res://Scenes/Main/Timer.gd" id="9_y1rbp"]
 [ext_resource type="AudioStream" uid="uid://bkv1dbkx7nciu" path="res://sounds/ambience_air.wav" id="11_uys52"]
@@ -96,6 +103,15 @@ transparent_bg = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 texture = SubResource("ViewportTexture_lw43f")
 
+[node name="FootSteps" type="AudioStreamPlayer3D" parent="Player 1"]
+stream = ExtResource("4_ucs5r")
+
+[node name="ItemPickUp" type="AudioStreamPlayer3D" parent="Player 1"]
+stream = ExtResource("5_duik3")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Player 1"]
+stream = ExtResource("7_w76mn")
+
 [node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.23269, 0.670864, 4.39606)
 app_event_left = "ui_left_2"
@@ -119,14 +135,31 @@ transparent_bg = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 texture = SubResource("ViewportTexture_gqc7v")
 
+[node name="FootSteps" type="AudioStreamPlayer3D" parent="Player 2"]
+stream = ExtResource("4_ucs5r")
+
+[node name="ItemPickUp" type="AudioStreamPlayer3D" parent="Player 2"]
+stream = ExtResource("5_duik3")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Player 2"]
+stream = ExtResource("7_w76mn")
+volume_db = -4.622
+bus = &"Explosions"
+
 [node name="BasicBall" parent="." instance=ExtResource("3_5ixmd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 
 [node name="House" parent="." instance=ExtResource("4_1a38q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.164557, -0.708029)
 
+[node name="HouseDestruction" type="AudioStreamPlayer" parent="House"]
+volume_db = -15.118
+bus = &"Explosions"
+
 [node name="PhantomCamera3D" type="Node3D" parent="."]
+
 transform = Transform3D(0.997161, 0.0668087, -0.0346413, 0, 0.460315, 0.887757, 0.0752554, -0.885239, 0.45901, 0, 10.1639, 7.35724)
+
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -139,7 +172,9 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
+
 transform = Transform3D(0.997161, 0.0668087, -0.0346413, 0, 0.460315, 0.887757, 0.0752554, -0.885239, 0.45901, 0, 10.1639, 7.35724)
+
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -157,8 +192,11 @@ transform = Transform3D(-0.0515173, 0, 0.998672, 0, 1, 0, -0.998672, 0, -0.05151
 
 [node name="GunShotSound" type="AudioStreamPlayer3D" parent="Weapon"]
 stream = ExtResource("9_1dj7m")
-volume_db = 4.572
-max_db = -2.757
+volume_db = 8.819
+max_db = 0.0
+bus = &"Explosions"
+attenuation_filter_cutoff_hz = 20000.0
+attenuation_filter_db = -8.4
 
 [node name="Chairs" type="Node3D" parent="."]
 
@@ -344,8 +382,14 @@ transform = Transform3D(0.944473, 0, 1.44705, 0, 1.728, 0, -1.44705, 0, 0.944473
 [node name="F52" parent="Foliage" instance=ExtResource("9_cgwyc")]
 transform = Transform3D(1.32344, 0, 1.59635, 0, 2.0736, 0, -1.59635, 0, 1.32344, 4.56724, 0.304588, 7.74957)
 
+
+[node name="WorldAmbienceSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_uys52")
+volume_db = 4.561
+
 [node name="F10" parent="Foliage/F52" instance=ExtResource("9_cgwyc")]
 transform = Transform3D(0.785165, 0, -0.619286, 0, 1, 0, 0.619286, 0, 0.785165, -0.106852, 0.550178, 2.6039)
+
 
 [connection signal="findChair" from="Player 1" to="." method="_on_player_1_find_chair"]
 [connection signal="findChair" from="Player 2" to="." method="_on_player_2_find_chair"]

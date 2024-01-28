@@ -6,7 +6,7 @@ signal shooting_signal(bullet_type:String, spawning_direction:Vector3, spawning_
 @onready var shooting_data = {
 	"BasicWeapon":{
 		"child": $"BasicWeapon",
-		"rate" : 5000, # in ms
+		"rate" : 1000, # in ms
 		"bullets" : "BasicBullet",
 		"impulse_strength" : 10
 	}
