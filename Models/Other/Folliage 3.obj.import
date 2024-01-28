@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://1j1p4wm1slo5"
+path="res://.godot/imported/Folliage 3.obj-8db363c2dc716339cfee7592bb663a48.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Folliage 3.obj-8db363c2dc716339cfee7592bb663a48.mesh"]
+
+source_file="res://Models/Other/Folliage 3.obj"
+dest_files=["res://.godot/imported/Folliage 3.obj-8db363c2dc716339cfee7592bb663a48.mesh", "res://.godot/imported/Folliage 3.obj-8db363c2dc716339cfee7592bb663a48.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

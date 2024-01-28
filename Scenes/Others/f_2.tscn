@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjnfnfivycdye"]
+
+[ext_resource type="ArrayMesh" uid="uid://dbnk3aixg2iir" path="res://Models/Other/Folliage 2.obj" id="1_sly1t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yy6vq"]
+size = Vector3(1, 1.41754, 1)
+
+[node name="F2" type="StaticBody3D"]
+
+[node name="Folliage2" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_sly1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0364685, 0)
+shape = SubResource("BoxShape3D_yy6vq")
