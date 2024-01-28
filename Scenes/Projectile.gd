@@ -16,8 +16,6 @@ func _process(delta):
 	pass
 
 func _on_body_entered(body):
-	if body == $Collisions : 
-		return
 	emit_signal("exploded", transform, "BasicBullet", body)
 	queue_free()
 
@@ -25,4 +23,5 @@ func _physics_process(delta):
 	#look_at(global_position + velocity.normalized(), Vector3.UP)
 	position += transform.basis * Vector3(0,0,muzzle_velocity) *delta
 
-
+func _on_life_time_timeout():
+	queue_free()

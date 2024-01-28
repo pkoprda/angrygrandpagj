@@ -20,7 +20,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	shooting()
+	pass
 
 func shooting():
 	if Time.get_ticks_msec() - last_time >= shooting_data[current_weapon]["rate"]:
@@ -30,4 +30,11 @@ func shooting():
 		global_transform,
 		shooting_data[current_weapon]["child"].get_node("SpawningPoint"))
 		last_time = Time.get_ticks_msec()
-		
+
+func _on_basic_weapon_body_entered(body):
+	var player = body
+	while player.get_parent() != null and ! player.is_in_group("players") :
+		player = player.get_parent()
+	if player.get_parent() == null and ! player.is_in_group("players") or player.has_weapon(self):
+		return
+	player.add_weapon(self)

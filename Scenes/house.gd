@@ -22,7 +22,7 @@ func explode():
 	
 	for child in $fractured_house.get_children():
 		if child is MeshInstance3D:
-			var frag:Fragment = preload("res://scenes/fragment.tscn").instantiate()
+			var frag:Fragment = preload("res://Scenes/fragment.tscn").instantiate()
 			frag.init_from_mesh(child)
 			frag.collision_layer = fragment_collision_layer
 			frag.collision_mask = fragment_collision_mask

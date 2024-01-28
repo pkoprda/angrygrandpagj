@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx7wdc515w5gb"]
+[gd_scene load_steps=3 format=3 uid="uid://cjx1dexbp2ndk"]
 
-[ext_resource type="PackedScene" uid="uid://sw03arcg8s2m" path="res://Scenes/house.tscn" id="1_5t2hl"]
+[ext_resource type="PackedScene" path="res://Scenes/house.tscn" id="1_5t2hl"]
 
 [sub_resource type="Environment" id="Environment_54trv"]
 
