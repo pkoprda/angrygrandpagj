@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://b42xbt2slvrfk"]
+
+[gd_scene load_steps=17 format=3 uid="uid://b42xbt2slvrfk"]
+
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
-[ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://dij5xci3frgco" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="AudioStream" uid="uid://do7ldmvgcf68" path="res://sounds/multiple_foot_steps.wav" id="4_ucs5r"]
 [ext_resource type="AudioStream" uid="uid://de32hflfktwwh" path="res://sounds/grandpa_picks_up_item.wav" id="5_duik3"]
@@ -10,16 +12,23 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
 [ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
 [ext_resource type="PackedScene" uid="uid://cjgkde2pabw48" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
+
 [ext_resource type="AudioStream" uid="uid://c8atsjnaniejj" path="res://sounds/meaty_impact_01.wav" id="7_w76mn"]
 [ext_resource type="AudioStream" uid="uid://w4jqg511k7hv" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
+
 [ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
-[ext_resource type="AudioStream" uid="uid://bvn6nfuarfv85" path="res://sounds/ambience_air.wav" id="11_uys52"]
+[ext_resource type="Script" path="res://Scenes/Main/Timer.gd" id="9_y1rbp"]
+[ext_resource type="AudioStream" uid="uid://bkv1dbkx7nciu" path="res://sounds/ambience_air.wav" id="11_uys52"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(300, 0.2, 300)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20bwb"]
+albedo_color = Color(0.278431, 0.388235, 0.235294, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_mcxtw"]
-size = Vector2(20, 20)
+material = SubResource("StandardMaterial3D_20bwb")
+size = Vector2(300, 300)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lw43f"]
 viewport_path = NodePath("Player 1/SubViewport")
@@ -30,9 +39,37 @@ viewport_path = NodePath("Player 2/SubViewport")
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w37ph")
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("9_y1rbp")
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="Control"]
+wait_time = 300.0
+
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 257
 collision_mask = 271
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0166016, 0)
@@ -40,12 +77,11 @@ shape = SubResource("BoxShape3D_7fptj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-visible = false
 mesh = SubResource("PlaneMesh_mcxtw")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="Player 1" parent="." instance=ExtResource("2_yd7yg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16513, 0.0833988, 0.198029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46891, 0.0833988, 0.198029)
 app_event_left = "ui_left_1"
 app_event_right = "ui_right_1"
 app_event_up = "ui_up_1"
@@ -54,6 +90,8 @@ app_event_jump = "ui_jump_1"
 app_event_grab = "ui_grab_1"
 app_event_throw = "ui_throw_1"
 color = Color(1, 0.494118, 0.427451, 1)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="SubViewport" type="SubViewport" parent="Player 1"]
 disable_3d = true
@@ -75,7 +113,7 @@ stream = ExtResource("5_duik3")
 stream = ExtResource("7_w76mn")
 
 [node name="Player 2" parent="." instance=ExtResource("2_yd7yg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67031, 0.670864, 4.39606)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.23269, 0.670864, 4.39606)
 app_event_left = "ui_left_2"
 app_event_right = "ui_right_2"
 app_event_up = "ui_up_2"
@@ -84,6 +122,8 @@ app_event_jump = "ui_jump_2"
 app_event_grab = "ui_grab_2"
 app_event_throw = "ui_throw_2"
 color = Color(0.501961, 0.662745, 1, 1)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="SubViewport" type="SubViewport" parent="Player 2"]
 disable_3d = true
@@ -110,14 +150,16 @@ bus = &"Explosions"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 
 [node name="House" parent="." instance=ExtResource("4_1a38q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.164557, -0.708029)
 
 [node name="HouseDestruction" type="AudioStreamPlayer" parent="House"]
 volume_db = -15.118
 bus = &"Explosions"
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.998803, -0.0433687, 0.0224504, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
+
+transform = Transform3D(0.997161, 0.0668087, -0.0346413, 0, 0.460315, 0.887757, 0.0752554, -0.885239, 0.45901, 0, 10.1639, 7.35724)
+
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -130,8 +172,9 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.998803, -0.0433687, 0.0224504, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
-fov = 74.6291
+
+transform = Transform3D(0.997161, 0.0668087, -0.0346413, 0, 0.460315, 0.887757, 0.0752554, -0.885239, 0.45901, 0, 10.1639, 7.35724)
+
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -163,16 +206,194 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 2)
 [node name="Chair2" parent="Chairs" instance=ExtResource("9_og7b0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
 
-[node name="Sounds" type="Node" parent="."]
+[node name="Foliage" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.267, 0.943201, 0.204018)
+
+[node name="F58" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.483086, 0, -2.01654, 0, 2.0736, 0, 2.01654, 0, 0.483086, 1.34359, 0.917088, 1.11258)
+
+[node name="F54" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(-0.978668, 0, 1.82812, 0, 2.0736, 0, -1.82812, 0, -0.978668, 30.044, 0.326511, 5.57051)
+
+[node name="F55" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-0.978668, 0, 1.82812, 0, 2.0736, 0, -1.82812, 0, -0.978668, 31.8572, 0.100921, 3.83387)
+
+[node name="F56" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(-0.978668, 0, 1.82812, 0, 2.0736, 0, -1.82812, 0, -0.978668, 32.0374, 0.326511, 6.47855)
+
+[node name="F57" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(-0.978668, 0, 1.82812, 0, 2.0736, 0, -1.82812, 0, -0.978668, 29.3911, -0.0619686, 9.26329)
+
+[node name="F1" parent="Foliage" instance=ExtResource("9_cgwyc")]
+
+[node name="F2" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.581654, -0.187345, -1.75894)
+
+[node name="F3" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.777046, -0.317895, -0.84369)
+
+[node name="F4" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.19222, 0, -0.136426, 0, 1.2, 0, 0.136426, 0, 1.19222, -0.0201378, -0.187345, -2.97648)
+
+[node name="F5" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1.98703, 0, -0.227377, 0, 2, 0, 0.227377, 0, 1.98703, 0.816236, 0.0596216, -5.31303)
+
+[node name="F6" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.19222, 0, -0.136426, 0, 1.2, 0, 0.136426, 0, 1.19222, -0.475079, -0.50524, -4.42592)
+
+[node name="F7" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.02058, 0, -0.631207, 0, 1.2, 0, 0.631207, 0, 1.02058, 2.06242, 0.349646, -5.90374)
+
+[node name="F8" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1.02058, 0, -0.631207, 0, 1.2, 0, 0.631207, 0, 1.02058, 1.68949, 0.124831, -8.07461)
+
+[node name="F9" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.02058, 0, -0.631207, 0, 1.2, 0, 0.631207, 0, 1.02058, 0.912361, -0.0318282, -7.26386)
+
+[node name="F10" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 3.03109, 0.124831, -8.96277)
+
+[node name="F11" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 4.34594, -0.0999834, -11.4463)
+
+[node name="F12" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 3.48168, -0.256643, -10.7292)
+
+[node name="F13" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 2.82497, -0.0999834, -11.4707)
+
+[node name="F14" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 3.7359, -0.369761, -13.9781)
+
+[node name="F15" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.13064, 0, -0.891772, 0, 1.44, 0, 0.891772, 0, 1.13064, 2.69879, -0.557752, -13.1175)
+
+[node name="F16" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.22631, 0, -1.21744, 0, 1.728, 0, 1.21744, 0, 1.22631, 5.45654, -0.369761, -14.8539)
+
+[node name="F17" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(1.22631, 0, -1.21744, 0, 1.728, 0, 1.21744, 0, 1.22631, 7.36296, -0.639538, -17.6355)
+
+[node name="F18" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.22631, 0, -1.21744, 0, 1.728, 0, 1.21744, 0, 1.22631, 6.23474, -0.827529, -16.8984)
+
+[node name="F19" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.591011, 0, -1.62379, 0, 1.728, 0, 1.62379, 0, 0.591011, 9.42349, 0.403506, -17.1094)
+
+[node name="F20" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(0.591011, 0, -1.62379, 0, 1.728, 0, 1.62379, 0, 0.591011, 11.9359, 0.0797736, -19.0935)
+
+[node name="F21" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.591011, 0, -1.62379, 0, 1.728, 0, 1.62379, 0, 0.591011, 10.3342, -0.145816, -18.8698)
+
+[node name="F22" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.483086, 0, -2.01654, 0, 2.0736, 0, 2.01654, 0, 0.483086, 14.2448, 0.0797736, -18.9013)
+
+[node name="F23" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(0.483086, 0, -2.01654, 0, 2.0736, 0, 2.01654, 0, 0.483086, 17.9462, -0.243959, -20.5367)
+
+[node name="F24" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.483086, 0, -2.01654, 0, 2.0736, 0, 2.01654, 0, 0.483086, 16.3295, -0.469549, -20.4966)
+
+[node name="F25" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(0.595006, 0, 2.9261, 0, 2.98599, 0, -2.9261, 0, 0.595006, 35.5138, 1.67632, -16.5475)
+
+[node name="F26" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.498165, 0, 2.44986, 0, 2.5, 0, -2.44986, 0, 0.498165, 36.8893, 1.67632, -13.7089)
+
+[node name="F27" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.595006, 0, 2.9261, 0, 2.98599, 0, -2.9261, 0, 0.595006, 33.6854, 0.727095, -6.06332)
+
+[node name="F30" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(-2.22863, 0, -1.1328, 0, 2.5, 0, 1.1328, 0, -2.22863, 31.8749, 0.330041, -7.76886)
+
+[node name="F53" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-1.21174, 0.0640428, 0.881806, 0.0517828, 1.49863, -0.0376832, -0.88261, 0, -1.21285, 35.2166, -0.196387, -0.183335)
+
+[node name="F28" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.10857, 0, 3.40738, 0, 3.58318, 0, -3.40738, 0, 1.10857, 28.1142, 1.42733, -14.4907)
+
+[node name="F29" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.10857, 0, 3.40738, 0, 3.58318, 0, -3.40738, 0, 1.10857, 23.6023, 0.478098, -14.0219)
+
+[node name="F31" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(-2.22863, 0, -1.1328, 0, 2.5, 0, 1.1328, 0, -2.22863, 38.5527, 2.10884, -7.13266)
+
+[node name="F32" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(-0.93397, 0, 1.85136, 0, 2.0736, 0, -1.85136, 0, -0.93397, 25.1154, 0.963528, -23.5791)
+
+[node name="F33" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(-0.93397, 0, 1.85136, 0, 2.0736, 0, -1.85136, 0, -0.93397, 27.0862, 0.963528, -22.6229)
+
+[node name="F34" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(-0.93397, 0, 1.85136, 0, 2.0736, 0, -1.85136, 0, -0.93397, 24.373, 0.575048, -19.9033)
+
+[node name="F35" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-0.93397, 0, 1.85136, 0, 2.0736, 0, -1.85136, 0, -0.93397, 26.2499, 0.304341, -20.3963)
+
+[node name="F36" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(-0.860925, 0, 2.33464, 0, 2.48832, 0, -2.33464, 0, -0.860925, 21.5944, 0.575048, -19.8057)
+
+[node name="F37" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-0.860925, 0, 2.33464, 0, 2.48832, 0, -2.33464, 0, -0.860925, 19.3359, -0.0841387, -17.6097)
+
+[node name="F38" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-2.99775, 0, -0.11621, 0, 3, 0, 0.11621, 0, -2.99775, 36.8143, 0.575048, -4.32843)
+
+[node name="F39" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(-2.28176, 0, -1.94771, 0, 3, 0, 1.94771, 0, -2.28176, 30.0685, -0.512546, -10.6454)
+
+[node name="F40" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(-4.70936, 0, -4.0199, 0, 6.19173, 0, 4.0199, 0, -4.70936, 36.8143, 0.575048, -4.32843)
+
+[node name="F41" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.764141, 0, -1.84827, 0, 2, 0, 1.84827, 0, 0.764141, 19.047, 0.946302, 13.6788)
+
+[node name="F42" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.764141, 0, -1.84827, 0, 2, 0, 1.84827, 0, 0.764141, 33.7947, 0.22713, 1.49186)
+
+[node name="F43" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.767689, 0, 1.8468, 0, 2, 0, -1.8468, 0, 0.767689, 2.76019, 0.477577, 4.48417)
+
+[node name="F44" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.313971, 0, 1.9752, 0, 2, 0, -1.9752, 0, 0.313971, 2.80798, 0.57958, 7.1002)
+
+[node name="F45" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.470956, 0, 2.9628, 0, 3, 0, -2.9628, 0, 0.470956, 11.7555, 0.697072, 12.2378)
+
+[node name="F46" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.344233, 0, 0.938884, 0, 1, 0, -0.938884, 0, 0.344233, 2.13518, 0, 2.48587)
+
+[node name="F47" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(0.344233, 0, 0.938884, 0, 1, 0, -0.938884, 0, 0.344233, 0.283516, -0.187345, 2.42649)
+
+[node name="F48" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.344233, 0, 0.938884, 0, 1, 0, -0.938884, 0, 0.344233, 1.07557, -0.317895, 2.925)
+
+[node name="F49" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(1.22631, 0, -1.21744, 0, 1.728, 0, 1.21744, 0, 1.22631, 6.44086, -0.602715, -14.3905)
+
+[node name="F50" parent="Foliage" instance=ExtResource("10_farkd")]
+transform = Transform3D(0.944473, 0, 1.44705, 0, 1.728, 0, -1.44705, 0, 0.944473, 5.79875, 0.304588, 9.71207)
+
+[node name="F51" parent="Foliage" instance=ExtResource("11_lwc2k")]
+transform = Transform3D(0.944473, 0, 1.44705, 0, 1.728, 0, -1.44705, 0, 0.944473, 6.93862, 0.0789986, 10.8592)
+
+[node name="F52" parent="Foliage" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(1.32344, 0, 1.59635, 0, 2.0736, 0, -1.59635, 0, 1.32344, 4.56724, 0.304588, 7.74957)
+
 
 [node name="WorldAmbienceSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("11_uys52")
 volume_db = 4.561
 
+[node name="F10" parent="Foliage/F52" instance=ExtResource("9_cgwyc")]
+transform = Transform3D(0.785165, 0, -0.619286, 0, 1, 0, 0.619286, 0, 0.785165, -0.106852, 0.550178, 2.6039)
+
+
 [connection signal="findChair" from="Player 1" to="." method="_on_player_1_find_chair"]
 [connection signal="findChair" from="Player 2" to="." method="_on_player_2_find_chair"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
-[connection signal="shooting_signal" from="Weapon" to="." method="_on_weapon_shooting_signal"]
 [connection signal="stop_resting" from="Chairs/Chair" to="." method="_on_chair_stop_resting"]
 [connection signal="want_to_rest" from="Chairs/Chair" to="." method="_on_chair_want_to_rest"]
 [connection signal="stop_resting" from="Chairs/Chair2" to="." method="_on_chair_stop_resting"]

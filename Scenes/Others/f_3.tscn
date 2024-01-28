@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlpeptkk8mhoy"]
+
+[ext_resource type="ArrayMesh" uid="uid://1j1p4wm1slo5" path="res://Models/Other/Folliage 3.obj" id="1_h8u8t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v12du"]
+
+[node name="F3" type="StaticBody3D"]
+
+[node name="Folliage3" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_h8u8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_v12du")
