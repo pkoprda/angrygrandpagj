@@ -16,6 +16,8 @@ func _process(delta):
 	pass
 
 func _on_body_entered(body):
+	if body == $Collisions : 
+		return
 	emit_signal("exploded", transform.origin)
 	queue_free()
 

@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.999189, 0.0118262, 0.0384565, 0, 0.955826, -0.293936, -0.0402338, 0.293698, 0.955052, 0, -1.51391, 6.44137)
+transform = Transform3D(0.999189, -0.0117021, 0.0384944, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -69,8 +69,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999189, 0.0118262, 0.0384565, 0, 0.955826, -0.293936, -0.0402338, 0.293698, 0.955052, 0, -1.51391, 6.44137)
-fov = 73.8605
+transform = Transform3D(0.999189, -0.0117021, 0.0384944, 0, 0.956769, 0.290851, -0.0402338, -0.290616, 0.955994, 0, 2.24648, 6.44137)
+fov = 74.6976
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")

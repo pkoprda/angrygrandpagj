@@ -29,5 +29,3 @@ func shooting():
 		global_transform,
 		shooting_data[current_weapon]["child"].get_node("SpawningPoint"))
 		last_time = Time.get_ticks_msec()
-
-
