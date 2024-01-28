@@ -1,8 +1,8 @@
 extends Node
 
 var bullet_types = {
-	"basic" : {
-		"damage" : 2,
+	"BasicBullet" : {
+		"damage" : 15,
 		"ref" : "res://Scenes/Weapons/Bullet.tscn"
 	}
 	

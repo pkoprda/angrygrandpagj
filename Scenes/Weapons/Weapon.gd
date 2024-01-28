@@ -8,7 +8,7 @@ signal shooting_signal(bullet_type:String, spawning_direction:Vector3, spawning_
 		"child": $"BasicWeapon",
 		"rate" : 1000, # in ms
 		"bullets" : "BasicBullet",
-		"impulse_strength" : 0.4
+		"impulse_strength" : 10
 	}
 }
 
@@ -29,3 +29,4 @@ func shooting():
 		global_transform,
 		shooting_data[current_weapon]["child"].get_node("SpawningPoint"))
 		last_time = Time.get_ticks_msec()
+		
