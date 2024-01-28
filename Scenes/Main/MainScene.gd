@@ -20,8 +20,8 @@ func spawnBullet(shooter_origin: Vector3,transform_b, bullet_type:String):
 	b.position = shooter_origin
 	b.connect("exploded", _on_explosion_signal)
 
-func _on_flash_timer_timeout():
-	pass
+func _on_timer_timeout():
+	get_tree().change_scene_to_file("res://Scenes/ui_end.tscn")
 	
 func _on_weapon_shooting_signal(bullet_type:String, transform, spawning_point:Node3D):
 	spawnBullet(spawning_point.global_position, transform, bullet_type)

@@ -142,6 +142,7 @@ func add_weapon(wp):
 	$Collision/WpSlot.add_child(wp)
 	wp.transform.origin = Vector3.ZERO
 	wp.rotation = Vector3.ZERO
+	$ItemPickUp.play()
 
 func lower_stamina():
 	if Input.is_action_just_pressed(app_event_left) \
@@ -171,6 +172,7 @@ func get_hit(bullet_type, impact_part, bullet_transform):
 	$"SubViewport/StaminaBar3D".value = stamina
 	
 	impact_part.apply_impulse(bullet_transform.basis.z.normalized()*100,bullet_transform.origin - impact_part.transform.origin)
+	$HitSound.play()
 
 func rest():
 	resting = true
