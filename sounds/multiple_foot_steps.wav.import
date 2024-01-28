@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dlyilnkjjsdj8"
+
+uid="uid://do7ldmvgcf68"
+
 path="res://.godot/imported/multiple_foot_steps.wav-07d50ecf3584b810427052dd294e9aaa.sample"
 
 [deps]

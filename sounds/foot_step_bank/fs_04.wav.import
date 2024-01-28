@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dd36exmjr4ql5"
+
+uid="uid://dp6meiqiqtul"
+
 path="res://.godot/imported/fs_04.wav-30c831ceae5c974258b69c12d59cbfa0.sample"
 
 [deps]
