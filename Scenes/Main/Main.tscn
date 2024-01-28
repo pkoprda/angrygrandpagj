@@ -101,14 +101,15 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999409, -0.0273635, 0.0207963, 0.00588898, 0.732472, 0.680771, -0.033861, -0.680247, 0.732201, 0, 6.9625, 5.03988)
-fov = 74.9197
+transform = Transform3D(0.998807, -0.0433687, 0.0224503, 0, 0.459718, 0.888065, -0.048835, -0.887006, 0.459169, 0, 10.1639, 7.35724)
+fov = 61.6692
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 0, 6.1582, 0)
+shadow_enabled = true
 
 [node name="FlashTimer" type="Timer" parent="."]
 

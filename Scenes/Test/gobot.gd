@@ -93,11 +93,18 @@ func _physics_process(delta):
 		$"SubViewport/StaminaBar3D".value = stamina
 
 func _process(delta):
-	if Input.is_action_pressed(app_event_grab) and grabbed_object == null:
+	if Input.is_action_just_released(app_event_grab) and $Collision/WpSlot.get_child_count() != 0:
+		drop_weapon()
+		return
+	
+	elif Input.is_action_pressed(app_event_grab) and grabbed_object == null:
 		grab()
 	
-	if Input.is_action_just_released(app_event_grab) and grabbed_object != null:
+	elif Input.is_action_just_released(app_event_grab) and grabbed_object != null:
 		release_grab()
+	
+	if Input.is_action_just_released(app_event_throw) and $Collision/WpSlot.get_child_count() != 0:
+		shoot()
 	
 func _on_grab_area_body_entered(body):
 	if body is RigidBody3D or body.is_in_group("weapons"):
@@ -107,6 +114,14 @@ func _on_grab_area_lbody_exited(body):
 	if body in list_grabbable_obj:
 		list_grabbable_obj.pop_at(list_grabbable_obj.find(body))
 
+func drop_weapon():
+	var wp = $Collision/WpSlot.get_child(0)
+	var gp = wp.global_position
+	
+	$Collision/WpSlot.remove_child(wp)
+	
+	wp.queue_free()
+	
 func shoot():
 	$Collision/WpSlot.get_child(0).shooting()
 
@@ -138,7 +153,8 @@ func lower_stamina():
 		stamina -= 3
 	if Input.is_action_just_pressed(app_event_grab) \
 	or Input.is_action_just_pressed(app_event_throw):
-		stamina -= 5
+		#stamina -= 5
+		pass
 	$"SubViewport/StaminaBar3D".value = stamina
 
 func character_is_moving():
@@ -169,6 +185,9 @@ func gotoChair(chair):
 	gotochairstate = true
 	closest_chair = chair
 	#disable_collisions()
+
+func has_weapon(wp):
+	return $Collision/WpSlot.get_child_count() != 0 and $Collision/WpSlot.get_child(0) != wp
 
 #func disable_collisions():
 #	for b in $"Collision/Skeleton3D".get_children():
