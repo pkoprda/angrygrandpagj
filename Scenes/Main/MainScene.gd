@@ -11,8 +11,11 @@ func _ready():
 func _process(delta):
 	pass
 
-func spawnBullet(shooter_origin: Vector3):
-	var b = Bullet.instance()
+func spawnBullet(shooter_origin: Vector3,transform_b, bullet_type:String):
+	var b = Bullet.instantiate()
 	$Bullets.add_child(b)
-	b.transform.origin = shooter_origin
-	b.velocity = -b.transform.basis.z * b.muzzle_velocity
+	b.global_transform.basis = transform_b.basis
+	b.position = shooter_origin
+
+func _on_weapon_shooting_signal(bullet_type:String, transform, spawning_point:Node3D):
+	spawnBullet(spawning_point.global_position, transform, bullet_type)

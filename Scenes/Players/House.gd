@@ -17,7 +17,7 @@ func _ready():
 
 func generate_wall_collisions(wall:MeshInstance3D):
 	var collision_area = CollisionShape3D.new()
-	var new_area = CharacterBody3D.new()
+	var new_area = Area3D.new()
 	
 	#var collision_area = CollisionShape3D.new()
 	var shape_area = wall.mesh.create_convex_shape(true, true)
@@ -41,15 +41,15 @@ func generate_wall_collisions(wall:MeshInstance3D):
 	wall.rotation = Vector3.ZERO
 	wall.scale = Vector3.ONE
 	
-	new_area.collision_mask = 4
-	new_area.collision_layer = 4
-	new_area.connect("body_entered", func(body): _handle_hit(collision_area, body))
+	new_area.scale = Vector3.ONE
+	new_area.position = Vector3.ZERO
+	new_area.monitoring = true;
+	new_area.connect("area_entered", func(body): _handle_hit(collision_area, body))
 
-func _handle_hit(wall_hit:CharacterBody3D, body: PhysicsBody3D):
+func _handle_hit(wall_hit:CollisionShape3D, body:Node3D):
+	print(body, wall_hit.get_child(0))
 	if body.is_in_group("bullets") : 
-		life_settings[wall_hit.name] = life_settings[wall_hit.name] -10 #To change later to adapt to the different types of bullets
-		if life_settings[wall_hit.name] <0 : 
-			destroy_wall(wall_hit)
+		life_settings[wall_hit.get_child(0).name] = life_settings[wall_hit.get_child(0).name] -10 #To change later to adapt to the different types of bullets
+		if life_settings[wall_hit.get_child(0).name] <0 : 
+			wall_hit.queue_free()
 
-func destroy_wall(wall):
-	wall.queue_free()

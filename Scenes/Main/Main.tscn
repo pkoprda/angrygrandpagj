@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc7ynyseyd5l3"]
+[gd_scene load_steps=10 format=3 uid="uid://dc7ynyseyd5l3"]
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j216mnl2o6b0" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
+[ext_resource type="PackedScene" uid="uid://bg15h5k33kw52" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(17.338, 0.2, 14.675)
@@ -49,13 +50,13 @@ app_event_grab = "ui_grab_2"
 app_event_throw = "ui_throw_2"
 
 [node name="BasicBall" parent="." instance=ExtResource("3_5ixmd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115122, 1.53392, 1.91166)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 
 [node name="House" parent="." instance=ExtResource("4_1a38q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.99919, -0.0138457, 0.0377763, 0, 0.938922, 0.344132, -0.0402336, -0.343854, 0.938161, 0, 2.63097, 6.44137)
+transform = Transform3D(0.999189, 0.0118262, 0.0384565, 0, 0.955826, -0.293936, -0.0402338, 0.293698, 0.955052, 0, -1.51391, 6.44137)
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -68,8 +69,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.99919, -0.0138457, 0.0377763, 0, 0.938922, 0.344132, -0.0402336, -0.343854, 0.938161, 0, 2.63097, 6.44137)
-fov = 74.3068
+transform = Transform3D(0.999189, 0.0118262, 0.0384565, 0, 0.955826, -0.293936, -0.0402338, 0.293698, 0.955052, 0, -1.51391, 6.44137)
+fov = 73.8605
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -77,4 +78,9 @@ script = ExtResource("6_m8mol")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 0, 6.1582, 0)
 
-[node name="Bullets" type="Node" parent="."]
+[node name="Bullets" type="Node3D" parent="."]
+
+[node name="Weapon" parent="." instance=ExtResource("7_jdhwf")]
+transform = Transform3D(-0.885061, 0, 0.465475, 0, 1, 0, -0.465475, 0, -0.885061, -1.97765, 0.153314, 3.36471)
+
+[connection signal="shooting_signal" from="Weapon" to="." method="_on_weapon_shooting_signal"]
