@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://qjskhbvg8jx0"
+
+uid="uid://bl2lstnwrrbgv"
+
 path="res://.godot/imported/grandpa_gets_hit_outch_01.wav-626e9f4afeedd6ab35163de83cd6541e.sample"
 
 [deps]

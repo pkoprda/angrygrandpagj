@@ -2,15 +2,16 @@
 
 [ext_resource type="Script" path="res://Scenes/Main/MainScene.gd" id="1_w37ph"]
 [ext_resource type="PackedScene" uid="uid://la4ke8p4nkw0" path="res://Scenes/Test/gobot-working.tscn" id="2_yd7yg"]
-[ext_resource type="PackedScene" uid="uid://bpalftlsx21gp" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
+[ext_resource type="PackedScene" uid="uid://dij5xci3frgco" path="res://Scenes/Test/basic_ball.tscn" id="3_5ixmd"]
 [ext_resource type="PackedScene" uid="uid://dd131nyx3p15t" path="res://Scenes/Players/House.tscn" id="4_1a38q"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="5_r38wn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_m8mol"]
-[ext_resource type="PackedScene" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
-[ext_resource type="PackedScene" uid="uid://s0ldilgchmyh" path="res://Scenes/Others/f_1.tscn" id="9_cgwyc"]
+[ext_resource type="PackedScene" uid="uid://dtx3n2c84q6gm" path="res://stamina_bar_3d.tscn" id="7_3g8fu"]
+[ext_resource type="PackedScene" uid="uid://cjgkde2pabw48" path="res://Scenes/Weapons/Weapon.tscn" id="7_jdhwf"]
+[ext_resource type="AudioStream" uid="uid://de03w833ts00n" path="res://sounds/gun_shot.wav" id="9_1dj7m"]
 [ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
-[ext_resource type="PackedScene" uid="uid://bjnfnfivycdye" path="res://Scenes/Others/f_2.tscn" id="10_farkd"]
-[ext_resource type="PackedScene" uid="uid://dlpeptkk8mhoy" path="res://Scenes/Others/f_3.tscn" id="11_lwc2k"]
+[ext_resource type="Script" path="res://Scenes/Main/Timer.gd" id="9_y1rbp"]
+[ext_resource type="AudioStream" uid="uid://bkv1dbkx7nciu" path="res://sounds/ambience_air.wav" id="11_uys52"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
 size = Vector3(300, 0.2, 300)
@@ -30,6 +31,32 @@ viewport_path = NodePath("Player 2/SubViewport")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_w37ph")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("9_y1rbp")
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="Control"]
+wait_time = 300.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 257
@@ -124,6 +151,14 @@ shadow_enabled = true
 [node name="FlashTimer" type="Timer" parent="."]
 
 [node name="Bullets" type="Node3D" parent="."]
+
+[node name="Weapon" parent="." instance=ExtResource("7_jdhwf")]
+transform = Transform3D(-0.0515173, 0, 0.998672, 0, 1, 0, -0.998672, 0, -0.0515173, -0.133385, 0.762069, 4.24587)
+
+[node name="GunShotSound" type="AudioStreamPlayer3D" parent="Weapon"]
+stream = ExtResource("9_1dj7m")
+volume_db = 4.572
+max_db = -2.757
 
 [node name="Chairs" type="Node3D" parent="."]
 

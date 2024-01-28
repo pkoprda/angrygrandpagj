@@ -2,7 +2,9 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bxw86hl7l6og1"
+
+uid="uid://vq6y18orbohw"
+
 path="res://.godot/imported/house_desctruction_02.wav-a41c563cc39b86bb3dba42566211fab6.sample"
 
 [deps]

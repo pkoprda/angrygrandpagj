@@ -6,7 +6,7 @@ signal shooting_signal(bullet_type:String, spawning_direction:Vector3, spawning_
 @onready var shooting_data = {
 	"BasicWeapon":{
 		"child": $"BasicWeapon",
-		"rate" : 1000, # in ms
+		"rate" : 5000, # in ms
 		"bullets" : "BasicBullet",
 		"impulse_strength" : 10
 	}
@@ -24,6 +24,7 @@ func _process(delta):
 
 func shooting():
 	if Time.get_ticks_msec() - last_time >= shooting_data[current_weapon]["rate"]:
+		$GunShotSound.play()
 		emit_signal("shooting_signal",
 		shooting_data[current_weapon]["bullets"], 
 		global_transform,
