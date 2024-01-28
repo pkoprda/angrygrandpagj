@@ -8,12 +8,14 @@ extends CharacterBody3D
 @export var app_event_grab = ''
 @export var app_event_throw = ''
 
+@export var color:Color
+
 var stamina = 100
 var stamine_charge_rate = 2
 var MIN_STAMINA = 0
 var MAX_STAMINA = 100
 
-var grabbed_object : RigidBody3D = null
+var grabbed_object = null
 var accel = 0.3
 var friction = 0.5
 var SPEED = 5.0
@@ -31,6 +33,10 @@ var closest_chair = null
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+func _ready():
+	var mat = ($Collision/Skeleton3D/Cube_010 as MeshInstance3D).mesh.surface_get_material(0)
+	(mat as BaseMaterial3D).albedo_color = color
+	
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -94,12 +100,15 @@ func _process(delta):
 		release_grab()
 	
 func _on_grab_area_body_entered(body):
-	if body is RigidBody3D:
+	if body is RigidBody3D or body.is_in_group("weapons"):
 		list_grabbable_obj.append(body)
 		
-func _on_grab_area_body_exited(body):
+func _on_grab_area_lbody_exited(body):
 	if body in list_grabbable_obj:
 		list_grabbable_obj.pop_at(list_grabbable_obj.find(body))
+
+func shoot():
+	$Collision/WpSlot.get_child(0).shooting()
 
 # Attempt to grab a RigidBody within the grab distance
 func grab():
@@ -112,6 +121,12 @@ func grab():
 func release_grab():
 	grabbed_object = null
 	accel = accel*2
+
+func add_weapon(wp):
+	wp.get_parent().remove_child(wp)
+	$Collision/WpSlot.add_child(wp)
+	wp.transform.origin = Vector3.ZERO
+	wp.rotation = Vector3.ZERO
 
 func lower_stamina():
 	if Input.is_action_just_pressed(app_event_left) \
@@ -139,7 +154,7 @@ func get_hit(bullet_type, impact_part, bullet_transform):
 	stamina -= $"/root/Global".bullet_types[bullet_type]["damage"]
 	$"SubViewport/StaminaBar3D".value = stamina
 	
-	impact_part.apply_impulse(bullet_transform.basis.z.normalized()*10,bullet_transform.origin - impact_part.transform.origin)
+	impact_part.apply_impulse(bullet_transform.basis.z.normalized()*100,bullet_transform.origin - impact_part.transform.origin)
 
 func rest():
 	resting = true
@@ -149,7 +164,6 @@ func rest():
 
 func stop_resting():
 	resting = false
-
 
 func gotoChair(chair):
 	gotochairstate = true

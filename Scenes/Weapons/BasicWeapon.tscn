@@ -103,7 +103,8 @@ shadow_mesh = SubResource("ArrayMesh_d1b5p")
 radius = 0.363321
 height = 2.72732
 
-[node name="BasicWeapon" type="RigidBody3D"]
+[node name="BasicWeapon" type="Area3D" groups=["weapons"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Weapon 1" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

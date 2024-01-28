@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cdfdlbfsuh8qv" path="res://Scenes/Players/Chair.tscn" id="9_og7b0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fptj"]
-size = Vector3(17.338, 0.2, 14.675)
+size = Vector3(300, 0.2, 300)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mcxtw"]
 size = Vector2(20, 20)
@@ -48,6 +48,7 @@ app_event_down = "ui_down_1"
 app_event_jump = "ui_jump_1"
 app_event_grab = "ui_grab_1"
 app_event_throw = "ui_throw_1"
+color = Color(1, 0.494118, 0.427451, 1)
 
 [node name="SubViewport" type="SubViewport" parent="Player 1"]
 disable_3d = true
@@ -68,6 +69,7 @@ app_event_down = "ui_down_2"
 app_event_jump = "ui_jump_2"
 app_event_grab = "ui_grab_2"
 app_event_throw = "ui_throw_2"
+color = Color(0.501961, 0.662745, 1, 1)
 
 [node name="SubViewport" type="SubViewport" parent="Player 2"]
 disable_3d = true
@@ -86,7 +88,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78659, 1.53392, 1.91166)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.708029)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(0.998804, -0.0433687, 0.0224503, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
+transform = Transform3D(0.998804, -0.0433687, 0.0224504, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
 script = ExtResource("5_r38wn")
 priority_override = false
 priority = 0
@@ -99,8 +101,8 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.998804, -0.0433687, 0.0224503, 0, 0.459718, 0.888066, -0.0488349, -0.887006, 0.45917, 0, 10.1639, 7.35724)
-fov = 74.8478
+transform = Transform3D(0.999409, -0.0273635, 0.0207963, 0.00588898, 0.732472, 0.680771, -0.033861, -0.680247, 0.732201, 0, 6.9625, 5.03988)
+fov = 74.9197
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("6_m8mol")
@@ -113,7 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 0.519236, 0.854631, 0, -0.854631, 0.519236, 
 [node name="Bullets" type="Node3D" parent="."]
 
 [node name="Weapon" parent="." instance=ExtResource("7_jdhwf")]
-transform = Transform3D(-0.0515173, 0, 0.998672, 0, 1, 0, -0.998672, 0, -0.0515173, -1.97765, 0.762069, 3.36471)
+transform = Transform3D(-0.0515173, 0, 0.998672, 0, 1, 0, -0.998672, 0, -0.0515173, -0.133385, 0.762069, 4.24587)
 
 [node name="Chairs" type="Node3D" parent="."]
 

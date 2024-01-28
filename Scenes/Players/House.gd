@@ -9,11 +9,11 @@ signal wall_get_hit(wall)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	house_selected.show()
+	house_selected.scale = Vector3.ONE*2
 	for p in house_selected.get_children():
 		life_settings[p.name] = house_parts_life_amount
 		generate_wall_collisions(p)
 		p.get_parent().add_to_group("walls")
-		
 
 func generate_wall_collisions(wall:MeshInstance3D):
 	var collision_area = CollisionShape3D.new()
